@@ -226,12 +226,29 @@
   .texto-grupo-title{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--gray3);padding:0 0 6px 0;border-bottom:2px solid var(--gray1);margin:20px 0 10px}
   .texto-grupo-title:first-child{margin-top:0}
   .texto-item{background:var(--white);border:1px solid var(--gray1);border-radius:8px;margin-bottom:10px;overflow:hidden}
-  .texto-label{font-size:11px;font-weight:700;color:var(--gray3);padding:8px 14px 0;text-transform:uppercase;letter-spacing:.4px}
-  .texto-body{padding:8px 14px 10px;font-size:13px;line-height:1.65;color:#222;white-space:pre-wrap;font-family:var(--font)}
+  .texto-label{font-size:13px;font-weight:700;color:var(--navy)}
+  .texto-body{display:none;padding:14px 18px 16px;font-size:13px;line-height:1.65;color:#222;white-space:pre-wrap;font-family:var(--font);border-top:1px solid var(--gray1);background:#fcfbf8}
+.texto-item.open .texto-body{display:block}
+.tx-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.tx-count{font-size:12px;font-weight:700;color:var(--gray3)}
+.tx-actions{display:flex;gap:8px}
+.tx-act{font:inherit;font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid var(--gray1);background:var(--white);color:var(--navy);cursor:pointer}
+.tx-act:hover{background:var(--cream)}
+.tx-head{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none}
+.tx-head:hover{background:#faf8f3}
+.tx-head:focus-visible{outline:2px solid var(--navy);outline-offset:-2px}
+.tx-info{flex:1;min-width:0}
+.tx-desc{font-size:12px;color:var(--gray3);margin-top:3px;line-height:1.45}
+.tx-chev{font-size:14px;color:var(--gray3);transition:transform .15s;width:16px;text-align:center}
+.texto-item.open .tx-chev{transform:rotate(180deg)}
+.texto-item.open{border-color:#c9c3b6}
   .texto-footer{display:flex;justify-content:flex-end;padding:6px 12px;background:var(--cream);border-top:1px solid var(--gray1)}
   .btn-copy{display:flex;align-items:center;gap:5px;background:var(--teal);color:var(--white);border:none;cursor:pointer;font-size:11px;font-weight:700;padding:5px 14px;border-radius:5px;transition:background .15s;font-family:var(--font)}
   .btn-copy:hover{background:var(--teal-lt)}
   .btn-copy.copied{background:#1A6E3A}
+  .aviso-copia{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:9999;padding:12px 22px;border-radius:8px;font-size:14px;font-weight:700;color:#fff;background:#1A6E3A;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:opacity .2s,transform .2s;max-width:calc(100vw - 32px);text-align:center}
+  .aviso-copia.erro{background:#b71c1c}
+  .aviso-copia.show{opacity:1;transform:translate(-50%,0)}
 
 
   .h-card-outer{display:flex;align-items:flex-start;gap:16px;max-width:1600px}
@@ -482,7 +499,7 @@
 
 <div class="fn-page" id="fp-textos">
   <div class="section-title">Textos Prontos</div>
-  <div class="section-sub">Clique em <strong>Copiar</strong> para copiar direto para a área de transferência e colar no SUREM</div>
+  <div class="section-sub">Clique no título para ver o texto completo · <strong>Copiar</strong> copia direto para a área de transferência, pronto para colar no SUREM</div>
   <div class="textos-wrap" id="textos-container"></div>
 </div>
 
@@ -973,6 +990,7 @@ const TEXTOS = [
     itens: [
       {
         label: "Vaga Zero autorizada",
+        desc: "Condições da Vaga Zero para orientar a unidade de origem, paciente e familiares",
         texto: `VAGA ZERO AUTORIZADA.
 
 * Acesso garantido ao serviço de urgência/emergência de maior complexidade (Portaria GM/MS nº 2.048/2002).
@@ -988,6 +1006,7 @@ const TEXTOS = [
     itens: [
       {
         label: "Transporte terrestre avançado — informações obrigatórias",
+        desc: "16 campos obrigatórios do SUREM: origem, dados vitais e suporte do paciente",
         texto: `ATENÇÃO, UNIDADE SOLICITANTE — TRANSPORTE TERRESTRE AVANÇADO
 
 Caso seja necessário apoio com o transporte, definir com brevidade e informar os dados do familiar acompanhante: nome, CPF e grau de parentesco.
@@ -1019,45 +1038,134 @@ SUPORTE
 O preenchimento completo NÃO É OPCIONAL. Essas informações são indispensáveis para a avaliação da solicitação e o planejamento seguro do transporte do paciente.`
       }
     ]
+  },
+  {
+    grupo: "Oftalmologia",
+    itens: [
+      {
+        label: "Solicitação de agendamento — urgência oftalmológica",
+        desc: "Dados do paciente, da unidade, informações clínicas e condições de deslocamento para a VIII GERES",
+        texto: `SOLICITAÇÃO DE AGENDAMENTO – URGÊNCIA OFTALMOLÓGICA
+
+Para viabilizar o agendamento de avaliação oftalmológica junto à VIII GERES, por meio do fluxo regulado pela CRIL, a unidade hospitalar solicitante deverá encaminhar todas as informações abaixo, devidamente preenchidas, juntamente com o resumo clínico do paciente.
+
+DADOS DO PACIENTE
+* Nome completo:
+* Data de nascimento:
+* Naturalidade:
+* Raça/cor:
+* Nome da mãe:
+* Cartão Nacional de Saúde (CNS):
+* CPF:
+* CEP:
+* Município de residência:
+* Rua:
+* Bairro:
+* Telefone para contato:
+
+DADOS DA UNIDADE SOLICITANTE
+* Unidade hospitalar solicitante:
+* Município da unidade:
+
+INFORMAÇÕES CLÍNICAS
+* Queixa principal e motivo da solicitação:
+* História clínica e evolução do quadro:
+* Sinais e sintomas apresentados:
+* Diagnóstico ou hipótese diagnóstica:
+* Informações relevantes sobre a avaliação oftalmológica necessária:
+
+CONDIÇÕES PARA ATENDIMENTO E DESLOCAMENTO
+* Paciente clinicamente estável para deslocamento:
+* Necessita de acompanhante:
+* Condições clínicas para atendimento ambulatorial:
+* Tipo de transporte necessário, se aplicável:
+* Paciente politraumatizado (sim/não):
+* Em uso de oxigênio (sim/não):
+* Necessita de internação, monitorização contínua ou suporte hospitalar (sim/não):
+
+OBSERVAÇÃO: O encaminhamento deverá conter informações clínicas suficientes para justificar a necessidade de avaliação oftalmológica de urgência, bem como a confirmação de que o paciente apresenta condições clínicas para deslocamento e atendimento ambulatorial, conforme os critérios estabelecidos no fluxo.
+Após a confirmação do agendamento, a unidade solicitante é responsável pelo transporte do paciente, respeitando a data e o horário informados. Não é permitido o encaminhamento direto à Fundação Banco de Olhos sem confirmação do agendamento.
+O envio de todos os dados é indispensável para a solicitação de agendamento e continuidade do processo de regulação.`
+      }
+    ]
   }
 ];
 
 const _textoStore = {};
+const TX_ICONES = {"Vaga Zero":"🚨","Transporte Terrestre Avançado":"🚑","Oftalmologia":"👁️"};
 function buildTextos() {
   const container = document.getElementById("textos-container");
   if (!container) return;
   container.innerHTML = "";
-  let idx = 0;
+  let idx = 0, total = 0;
+  TEXTOS.forEach(g => total += g.itens.length);
+
+  const bar = document.createElement("div");
+  bar.className = "tx-toolbar";
+  bar.innerHTML = '<span class="tx-count">' + total + ' textos disponíveis</span>' +
+    '<span class="tx-actions"><button type="button" class="tx-act" data-acao="abrir">Expandir todos</button>' +
+    '<button type="button" class="tx-act" data-acao="fechar">Recolher todos</button></span>';
+  bar.querySelectorAll(".tx-act").forEach(b => b.addEventListener("click", () => {
+    const abrir = b.dataset.acao === "abrir";
+    container.querySelectorAll(".texto-item").forEach(it => setTx(it, abrir));
+  }));
+  container.appendChild(bar);
+
   TEXTOS.forEach(grupo => {
     const title = document.createElement("div");
     title.className = "texto-grupo-title";
-    title.textContent = grupo.grupo;
+    title.textContent = (TX_ICONES[grupo.grupo] ? TX_ICONES[grupo.grupo] + "  " : "") + grupo.grupo;
     container.appendChild(title);
     grupo.itens.forEach(item => {
       const key = "t" + idx++;
       _textoStore[key] = item.texto;
       const div = document.createElement("div");
       div.className = "texto-item";
-      const bodyDiv = document.createElement("div");
-      bodyDiv.className = "texto-body";
-      bodyDiv.textContent = item.texto;
+
+      const head = document.createElement("div");
+      head.className = "tx-head";
+      head.setAttribute("role", "button");
+      head.setAttribute("tabindex", "0");
+      head.setAttribute("aria-expanded", "false");
+      const info = document.createElement("div");
+      info.className = "tx-info";
       const labelDiv = document.createElement("div");
       labelDiv.className = "texto-label";
       labelDiv.textContent = item.label;
-      const footerDiv = document.createElement("div");
-      footerDiv.className = "texto-footer";
+      info.appendChild(labelDiv);
+      if (item.desc) {
+        const d = document.createElement("div");
+        d.className = "tx-desc";
+        d.textContent = item.desc;
+        info.appendChild(d);
+      }
       const btn = document.createElement("button");
+      btn.type = "button";
       btn.className = "btn-copy";
       btn.textContent = "📋 Copiar";
       btn.dataset.key = key;
-      btn.addEventListener("click", function() { copiarTexto(this); });
-      footerDiv.appendChild(btn);
-      div.appendChild(labelDiv);
+      btn.addEventListener("click", function(e) { e.stopPropagation(); copiarTexto(this); });
+      const chev = document.createElement("span");
+      chev.className = "tx-chev";
+      chev.textContent = "▾";
+      head.appendChild(info); head.appendChild(btn); head.appendChild(chev);
+      head.addEventListener("click", () => setTx(div, !div.classList.contains("open")));
+      head.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setTx(div, !div.classList.contains("open")); } });
+
+      const bodyDiv = document.createElement("div");
+      bodyDiv.className = "texto-body";
+      bodyDiv.textContent = item.texto;
+
+      div.appendChild(head);
       div.appendChild(bodyDiv);
-      div.appendChild(footerDiv);
       container.appendChild(div);
     });
   });
+}
+function setTx(item, abrir) {
+  item.classList.toggle("open", abrir);
+  const h = item.querySelector(".tx-head");
+  if (h) h.setAttribute("aria-expanded", abrir ? "true" : "false");
 }
 
 function escHtml(t) {
@@ -1066,11 +1174,45 @@ function escHtml(t) {
 
 function copiarTexto(btn) {
   const texto = _textoStore[btn.dataset.key] || "";
-  navigator.clipboard.writeText(texto).then(() => {
+  const ok = () => {
     btn.textContent = "✓ Copiado!";
     btn.classList.add("copied");
+    mostrarAviso("✓ Texto copiado! Agora é só colar no SUREM (Ctrl+V).", "ok");
     setTimeout(() => { btn.textContent = "📋 Copiar"; btn.classList.remove("copied"); }, 2200);
-  });
+  };
+  const falha = () => mostrarAviso("Não foi possível copiar automaticamente. Abra o texto, selecione e use Ctrl+C.", "erro");
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(texto).then(ok).catch(() => { copiaAlternativa(texto) ? ok() : falha(); });
+  } else {
+    copiaAlternativa(texto) ? ok() : falha();
+  }
+}
+function copiaAlternativa(texto) {
+  const ta = document.createElement("textarea");
+  ta.value = texto;
+  ta.setAttribute("readonly", "");
+  ta.style.position = "fixed"; ta.style.top = "-1000px"; ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+  document.body.removeChild(ta);
+  return ok;
+}
+let _avisoTimer = null;
+function mostrarAviso(msg, tipo) {
+  let el = document.getElementById("aviso-copia");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "aviso-copia";
+    el.setAttribute("role", "status");
+    el.setAttribute("aria-live", "polite");
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.className = "aviso-copia show " + (tipo || "ok");
+  clearTimeout(_avisoTimer);
+  _avisoTimer = setTimeout(() => el.classList.remove("show"), 2800);
 }
 
 buildTextos();
